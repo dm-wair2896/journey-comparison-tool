@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Options Comparator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .add-option-section {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 2px solid #e3e8ff;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .time-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .add-btn {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .travel-option {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .travel-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .travel-option.best {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .option-header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+
+        .option-header h3 {
+            font-size: 1.4em;
+            margin-bottom: 5px;
+        }
+
+        .best-badge {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: #ffd700;
+            color: #333;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .option-content {
+            padding: 20px;
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+        }
+
+        .info-section h4 {
+            color: #4a5568;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-item {
+            background: #f7fafc;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-label {
+            color: #718096;
+            font-size: 0.9em;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .score-bar {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #ffa726, #4ecdc4);
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .score-text {
+            font-size: 0.9em;
+            color: #718096;
+            margin-top: 5px;
+        }
+
+        .delete-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: background 0.2s ease;
+            margin-top: 15px;
+        }
+
+        .delete-btn:hover {
+            background: #ff5252;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #718096;
+            padding: 60px 20px;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .weather-status {
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .weather-good { background: #c6f6d5; color: #22543d; }
+        .weather-moderate { background: #fef5e7; color: #744210; }
+        .weather-poor { background: #fed7d7; color: #742a2a; }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌍 Travel Options Comparator</h1>
+            <p>Compare flights, hotels, car rentals, and travel logistics all in one place</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="add-option-section">
+                <h2 style="margin-bottom: 20px; color: #4a5568;">Add New Travel Option</h2>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="optionName">Option Name</label>
+                        <input type="text" id="optionName" placeholder="e.g., Paris Weekend Trip">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="destination">Destination</label>
+                        <input type="text" id="destination" placeholder="e.g., Paris, France">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="departureAirport">Departure Airport</label>
+                        <input type="text" id="departureAirport" placeholder="e.g., Milan Malpensa (MXP)">
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="flightCost">Flight Cost ($)</label>
+                        <input type="number" id="flightCost" placeholder="800">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hotelCost">Hotel Cost ($)</label>
+                        <input type="number" id="hotelCost" placeholder="600">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="carRentalCost">Car Rental Cost ($)</label>
+                        <input type="number" id="carRentalCost" placeholder="100">
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="homeToAirportCost">Home to Airport Cost ($)</label>
+                        <input type="number" id="homeToAirportCost" placeholder="50">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="airportToHomeCost">Airport to Home Cost ($)</label>
+                        <input type="number" id="airportToHomeCost" placeholder="50">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="windSpeed">Wind Speed Forecast (mph) - Optional</label>
+                        <input type="number" id="windSpeed" placeholder="15">
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="homeToAirportDuration">Home to Airport Time (minutes)</label>
+                        <input type="number" id="homeToAirportDuration" placeholder="90">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="airportToHomeDuration">Airport to Home Time (minutes)</label>
+                        <input type="number" id="airportToHomeDuration" placeholder="90">
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Departure Time</label>
+                        <div class="time-inputs">
+                            <input type="date" id="departureDate">
+                            <input type="time" id="departureTime">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Arrival Time</label>
+                        <div class="time-inputs">
+                            <input type="date" id="arrivalDate">
+                            <input type="time" id="arrivalTime">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="flightRating">Flight Quality (1-10) - Optional</label>
+                        <input type="number" id="flightRating" min="1" max="10" placeholder="8">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hotelRating">Hotel Quality (1-10)</label>
+                        <input type="number" id="hotelRating" min="1" max="10" placeholder="7">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Additional Notes</label>
+                    <textarea id="notes" placeholder="Any special considerations..."></textarea>
+                </div>
+
+                <button class="add-btn" onclick="addTravelOption()">✈️ Add Travel Option</button>
+            </div>
+
+            <div id="optionsContainer">
+                <div class="empty-state">
+                    <h3>No travel options yet</h3>
+                    <p>Add your first travel option above to start comparing!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let travelOptions = [];
+
+        function addTravelOption() {
+            const option = {
+                id: Date.now(),
+                name: document.getElementById('optionName').value || 'Unnamed Option',
+                destination: document.getElementById('destination').value || 'Unknown',
+                departureAirport: document.getElementById('departureAirport').value || 'Unknown Airport',
+                flightCost: parseFloat(document.getElementById('flightCost').value) || 0,
+                hotelCost: parseFloat(document.getElementById('hotelCost').value) || 0,
+                carRentalCost: parseFloat(document.getElementById('carRentalCost').value) || 0,
+                homeToAirportCost: parseFloat(document.getElementById('homeToAirportCost').value) || 0,
+                airportToHomeCost: parseFloat(document.getElementById('airportToHomeCost').value) || 0,
+                homeToAirportDuration: parseInt(document.getElementById('homeToAirportDuration').value) || 0,
+                airportToHomeDuration: parseInt(document.getElementById('airportToHomeDuration').value) || 0,
+                departureDate: document.getElementById('departureDate').value,
+                departureTime: document.getElementById('departureTime').value,
+                arrivalDate: document.getElementById('arrivalDate').value,
+                arrivalTime: document.getElementById('arrivalTime').value,
+                windSpeed: document.getElementById('windSpeed').value ? parseFloat(document.getElementById('windSpeed').value) : null,
+                flightRating: document.getElementById('flightRating').value ? parseInt(document.getElementById('flightRating').value) : null,
+                hotelRating: parseInt(document.getElementById('hotelRating').value) || 5,
+                notes: document.getElementById('notes').value || ''
+            };
+
+            // Calculate total cost automatically
+            option.totalCost = option.flightCost + option.hotelCost + option.carRentalCost + option.homeToAirportCost + option.airportToHomeCost;
+
+            travelOptions.push(option);
+            clearForm();
+            renderOptions();
+        }
+
+        function clearForm() {
+            document.getElementById('optionName').value = '';
+            document.getElementById('destination').value = '';
+            document.getElementById('departureAirport').value = '';
+            document.getElementById('flightCost').value = '';
+            document.getElementById('hotelCost').value = '';
+            document.getElementById('carRentalCost').value = '';
+            document.getElementById('homeToAirportCost').value = '';
+            document.getElementById('airportToHomeCost').value = '';
+            document.getElementById('homeToAirportDuration').value = '';
+            document.getElementById('airportToHomeDuration').value = '';
+            document.getElementById('departureDate').value = '';
+            document.getElementById('departureTime').value = '';
+            document.getElementById('arrivalDate').value = '';
+            document.getElementById('arrivalTime').value = '';
+            document.getElementById('windSpeed').value = '';
+            document.getElementById('flightRating').value = '';
+            document.getElementById('hotelRating').value = '';
+            document.getElementById('notes').value = '';
+        }
+
+        function calculateScore(option) {
+            // Total cost is automatically calculated, so use it directly
+            const maxTotalCost = Math.max(...travelOptions.map(o => o.totalCost));
+            const costScore = maxTotalCost > 0 ? ((maxTotalCost - option.totalCost) / maxTotalCost) * 50 : 25;
+            
+            // Time convenience scoring (shorter total travel time to/from airport is better)
+            const totalTravelTime = option.homeToAirportDuration + option.airportToHomeDuration;
+            const maxTravelTime = Math.max(...travelOptions.map(o => o.homeToAirportDuration + o.airportToHomeDuration));
+            const timeScore = maxTravelTime > 0 ? ((maxTravelTime - totalTravelTime) / maxTravelTime) * 25 : 12.5;
+            
+            // Quality scoring - hotel is required, flight is optional
+            let qualityScore = 0;
+            qualityScore += (option.hotelRating / 10) * 15; // Hotel rating
+            
+            if (option.flightRating !== null) {
+                qualityScore += (option.flightRating / 10) * 10; // Flight rating if provided
+            }
+            
+            // Wind speed scoring (higher is better, but only if specified)
+            let windScore = 5; // default neutral score
+            const windSpeeds = travelOptions.filter(o => o.windSpeed !== null).map(o => o.windSpeed);
+            
+            if (option.windSpeed !== null && windSpeeds.length > 0) {
+                const maxWind = Math.max(...windSpeeds);
+                windScore = maxWind > 0 ? (option.windSpeed / maxWind) * 10 : 5;
+            }
+            
+            return Math.round(costScore + timeScore + qualityScore + windScore);
+        }
+
+        function getWeatherClass(windSpeed) {
+            if (windSpeed === null || windSpeed === undefined) return '';
+            if (windSpeed >= 20) return 'weather-good';
+            if (windSpeed >= 10) return 'weather-moderate';
+            return 'weather-poor';
+        }
+
+        function getWeatherDescription(windSpeed) {
+            if (windSpeed === null || windSpeed === undefined) return 'Not specified';
+            if (windSpeed >= 20) return 'Great Winds';
+            if (windSpeed >= 10) return 'Moderate Winds';
+            return 'Light Winds';
+        }
+
+        function formatDateTime(date, time) {
+            if (!date || !time) return 'Not specified';
+            const dateObj = new Date(`${date}T${time}`);
+            return dateObj.toLocaleString('en-US', {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+        }
+
+        function deleteOption(id) {
+            travelOptions = travelOptions.filter(option => option.id !== id);
+            renderOptions();
+        }
+
+        function renderOptions() {
+            const container = document.getElementById('optionsContainer');
+            
+            if (travelOptions.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No travel options yet</h3>
+                        <p>Add your first travel option above to start comparing!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const optionsWithScores = travelOptions.map(option => ({
+                ...option,
+                score: calculateScore(option)
+            }));
+
+            const bestOption = optionsWithScores.reduce((best, current) => 
+                current.score > best.score ? current : best
+            );
+
+            const optionsHTML = optionsWithScores.map(option => {
+                const isBest = option.id === bestOption.id && travelOptions.length > 1;
+                
+                return `
+                    <div class="travel-option ${isBest ? 'best' : ''}">
+                        <div class="option-header">
+                            <h3>${option.name}</h3>
+                            <p>📍 ${option.destination} (via ${option.departureAirport})</p>
+                            ${isBest ? '<div class="best-badge">Best Option</div>' : ''}
+                        </div>
+                        
+                        <div class="option-content">
+                            <div class="info-section">
+                                <h4>💰 Cost Breakdown</h4>
+                                <div class="info-item">
+                                    <span class="info-label">Flight</span>
+                                    <span class="info-value">$${option.flightCost.toLocaleString()}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Hotel</span>
+                                    <span class="info-value">$${option.hotelCost.toLocaleString()}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Car Rental</span>
+                                    <span class="info-value">$${option.carRentalCost.toLocaleString()}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Home → Airport</span>
+                                    <span class="info-value">$${option.homeToAirportCost.toLocaleString()}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Airport → Home</span>
+                                    <span class="info-value">$${option.airportToHomeCost.toLocaleString()}</span>
+                                </div>
+                                <div class="info-item" style="border-top: 2px solid #e2e8f0; margin-top: 8px; padding-top: 8px;">
+                                    <span class="info-label"><strong>Total Cost</strong></span>
+                                    <span class="info-value"><strong>$${option.totalCost.toLocaleString()}</strong></span>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h4>✈️ Travel Times</h4>
+                                <div class="info-item">
+                                    <span class="info-label">Departure</span>
+                                    <span class="info-value">${formatDateTime(option.departureDate, option.departureTime)}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Arrival</span>
+                                    <span class="info-value">${formatDateTime(option.arrivalDate, option.arrivalTime)}</span>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h4>🚗 Home ↔ Airport Travel</h4>
+                                <div class="info-item">
+                                    <span class="info-label">Home → Airport</span>
+                                    <span class="info-value">${option.homeToAirportDuration} min</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Airport → Home</span>
+                                    <span class="info-value">${option.airportToHomeDuration} min</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Total Travel Time</span>
+                                    <span class="info-value">${option.homeToAirportDuration + option.airportToHomeDuration} min</span>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h4>🌤️ Weather & Quality</h4>
+                                ${option.windSpeed !== null ? `
+                                <div class="info-item">
+                                    <span class="info-label">Wind Conditions</span>
+                                    <span class="weather-status ${getWeatherClass(option.windSpeed)}">
+                                        ${option.windSpeed} mph - ${getWeatherDescription(option.windSpeed)}
+                                    </span>
+                                </div>
+                                ` : ''}
+                                ${option.flightRating !== null ? `
+                                <div class="info-item">
+                                    <span class="info-label">Flight Rating</span>
+                                    <span class="info-value">${option.flightRating}/10</span>
+                                </div>
+                                ` : ''}
+                                <div class="info-item">
+                                    <span class="info-label">Hotel Rating</span>
+                                    <span class="info-value">${option.hotelRating}/10</span>
+                                </div>
+                            </div>
+
+                            ${option.notes ? `
+                                <div class="info-section">
+                                    <h4>📝 Notes</h4>
+                                    <div class="info-item">
+                                        <span class="info-value" style="font-weight: normal;">${option.notes}</span>
+                                    </div>
+                                </div>
+                            ` : ''}
+
+                            <div class="info-section">
+                                <h4>📊 Overall Score</h4>
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: ${option.score}%"></div>
+                                </div>
+                                <div class="score-text">Score: ${option.score}/100</div>
+                            </div>
+
+                            <button class="delete-btn" onclick="deleteOption(${option.id})">
+                                🗑️ Remove Option
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = `<div class="comparison-grid">${optionsHTML}</div>`;
+        }
+
+        // Initialize with current date
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('departureDate').value = today;
+            document.getElementById('arrivalDate').value = today;
+        });
+    </script>
+</body>
+</html>
