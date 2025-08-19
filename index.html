@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+@media (max-width: 768px) {<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,7 +19,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
@@ -51,17 +51,123 @@
 
         .add-option-section {
             background: #f8f9ff;
-            border-radius: 15px;
-            padding: 25px;
+            border-radius: 20px;
+            padding: 30px;
             margin-bottom: 30px;
             border: 2px solid #e3e8ff;
         }
 
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            z-index: 100;
+            padding: 8px 30px;
+            border-bottom: 2px solid #e3e8ff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .content-with-fixed-header {
+            margin-top: 60px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #4a5568;
+            margin-bottom: 3px;
+            text-align: center;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #718096;
+            font-size: 0.85em;
+            margin-bottom: 3px;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .form-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        .form-card.collapsible {
+            cursor: pointer;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .card-icon {
+            font-size: 1.8em;
+            margin-right: 12px;
+            padding: 8px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .one-way .card-icon { background: linear-gradient(45deg, #4facfe, #00f2fe); }
+        .return .card-icon { background: linear-gradient(45deg, #43e97b, #38f9d7); }
+        .staying .card-icon { background: linear-gradient(45deg, #fa709a, #fee140); }
+        .optional .card-icon { background: linear-gradient(45deg, #a8edea, #fed6e3); }
+
+        .card-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2d3748;
+            flex: 1;
+        }
+
+        .collapse-indicator {
+            font-size: 1.2em;
+            color: #718096;
+            transition: transform 0.3s ease;
+        }
+
+        .form-card.collapsed .collapse-indicator {
+            transform: rotate(-90deg);
+        }
+
+        .card-content {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .form-card.collapsed .card-content {
+            max-height: 0;
+            padding: 0;
+            margin: 0;
+        }
+
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
         }
 
         .form-group {
@@ -96,21 +202,59 @@
             gap: 10px;
         }
 
+        .cost-time-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            align-items: end;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            height: 6px;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            border-radius: 3px;
+            transition: width 0.8s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #718096;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
         .add-btn {
             background: linear-gradient(45deg, #4facfe, #00f2fe);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.1em;
+            padding: 18px 35px;
+            border-radius: 30px;
+            font-size: 1.2em;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+            min-width: 250px;
         }
 
         .add-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(79, 172, 254, 0.4);
+        }
+
+        .add-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .comparison-grid {
@@ -260,8 +404,47 @@
         .weather-moderate { background: #fef5e7; color: #744210; }
         .weather-poor { background: #fed7d7; color: #742a2a; }
 
-        @media (max-width: 768px) {
-            .form-grid {
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 8px 12px;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8em;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+            .cards-container {
                 grid-template-columns: 1fr;
             }
             
@@ -272,6 +455,10 @@
             .header h1 {
                 font-size: 2em;
             }
+
+            .cost-time-group {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -279,109 +466,193 @@
     <div class="container">
         <div class="header">
             <h1>🌍 Travel Options Comparator</h1>
-            <p>Compare flights, hotels, car rentals, and travel logistics all in one place</p>
+            <p>Compare complete door-to-door travel costs and logistics</p>
         </div>
         
         <div class="main-content">
             <div class="add-option-section">
-                <h2 style="margin-bottom: 20px; color: #4a5568;">Add New Travel Option</h2>
-                
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="optionName">Option Name</label>
-                        <input type="text" id="optionName" placeholder="e.g., Paris Weekend Trip">
-                    </div>
+                <div class="fixed-header">
+                    <h2 class="section-title">Add New Travel Option</h2>
                     
-                    <div class="form-group">
-                        <label for="destination">Destination</label>
-                        <input type="text" id="destination" placeholder="e.g., Paris, France">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="departureAirport">Departure Airport</label>
-                        <input type="text" id="departureAirport" placeholder="e.g., Milan Malpensa (MXP)">
+                    <div class="progress-text">Complete the sections below to add your travel option</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
                     </div>
                 </div>
 
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="flightCost">Flight Cost ($)</label>
-                        <input type="number" id="flightCost" placeholder="800">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="hotelCost">Hotel Cost ($)</label>
-                        <input type="number" id="hotelCost" placeholder="600">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="carRentalCost">Car Rental Cost ($)</label>
-                        <input type="number" id="carRentalCost" placeholder="100">
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="homeToAirportCost">Home to Airport Cost ($)</label>
-                        <input type="number" id="homeToAirportCost" placeholder="50">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="airportToHomeCost">Airport to Home Cost ($)</label>
-                        <input type="number" id="airportToHomeCost" placeholder="50">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="windSpeed">Wind Speed Forecast (mph) - Optional</label>
-                        <input type="number" id="windSpeed" placeholder="15">
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="homeToAirportDuration">Home to Airport Time (minutes)</label>
-                        <input type="number" id="homeToAirportDuration" placeholder="90">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="airportToHomeDuration">Airport to Home Time (minutes)</label>
-                        <input type="number" id="airportToHomeDuration" placeholder="90">
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Departure Time</label>
-                        <div class="time-inputs">
-                            <input type="date" id="departureDate">
-                            <input type="time" id="departureTime">
+                <div class="content-with-fixed-header">
+                <div class="cards-container">
+                    <!-- Trip Basics Card -->
+                    <div class="form-card">
+                        <div class="card-header">
+                            <div class="card-icon">📋</div>
+                            <div class="card-title">Trip Basics</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="optionName">Option Name</label>
+                                    <input type="text" id="optionName" placeholder="e.g., Paris Weekend Trip">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="destination">Destination</label>
+                                    <input type="text" id="destination" placeholder="e.g., Paris, France">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label>Arrival Time</label>
-                        <div class="time-inputs">
-                            <input type="date" id="arrivalDate">
-                            <input type="time" id="arrivalTime">
+
+                    <!-- One Way Card -->
+                    <div class="form-card one-way">
+                        <div class="card-header">
+                            <div class="card-icon">✈️</div>
+                            <div class="card-title">One Way (Home → Destination)</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="flightCost">Flight Cost ($)</label>
+                                    <input type="number" id="flightCost" placeholder="800">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Departure Schedule</label>
+                                    <div class="time-inputs">
+                                        <input type="date" id="departureDate">
+                                        <input type="time" id="departureTime">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Arrival Schedule</label>
+                                    <div class="time-inputs">
+                                        <input type="date" id="arrivalAtDestinationDate">
+                                        <input type="time" id="arrivalAtDestinationTime">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="cost-time-group">
+                                <div class="form-group">
+                                    <label for="homeToAirportCost">Home → Airport Cost ($)</label>
+                                    <input type="number" id="homeToAirportCost" placeholder="50">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="homeToAirportDuration">Travel Time (minutes)</label>
+                                    <input type="number" id="homeToAirportDuration" placeholder="90">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="flightRating">Flight Quality (1-10) - Optional</label>
-                        <input type="number" id="flightRating" min="1" max="10" placeholder="8">
+                    <!-- Staying Card -->
+                    <div class="form-card staying">
+                        <div class="card-header">
+                            <div class="card-icon">🏨</div>
+                            <div class="card-title">Staying (At Destination)</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="hotelCost">Hotel Cost ($)</label>
+                                    <input type="number" id="hotelCost" placeholder="600">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="carRentalCost">Car Rental Cost ($)</label>
+                                    <input type="number" id="carRentalCost" placeholder="100">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="hotelRating">Hotel Quality (1-10)</label>
+                                    <input type="number" id="hotelRating" min="1" max="10" placeholder="7">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="hotelRating">Hotel Quality (1-10)</label>
-                        <input type="number" id="hotelRating" min="1" max="10" placeholder="7">
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="notes">Additional Notes</label>
-                    <textarea id="notes" placeholder="Any special considerations..."></textarea>
+                    <!-- Return Card -->
+                    <div class="form-card return">
+                        <div class="card-header">
+                            <div class="card-icon">🔄</div>
+                            <div class="card-title">Return (Destination → Home)</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="returnFlightCost">Flight Cost ($)</label>
+                                    <input type="number" id="returnFlightCost" placeholder="800">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Departure Schedule</label>
+                                    <div class="time-inputs">
+                                        <input type="date" id="returnDepartureDate">
+                                        <input type="time" id="returnDepartureTime">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Arrival Schedule</label>
+                                    <div class="time-inputs">
+                                        <input type="date" id="arrivalDate">
+                                        <input type="time" id="arrivalTime">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="cost-time-group">
+                                <div class="form-group">
+                                    <label for="airportToHomeCost">Airport → Home Cost ($)</label>
+                                    <input type="number" id="airportToHomeCost" placeholder="50">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="airportToHomeDuration">Travel Time (minutes)</label>
+                                    <input type="number" id="airportToHomeDuration" placeholder="90">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Optional Preferences Card -->
+                    <div class="form-card optional collapsible collapsed" onclick="toggleCard(this)">
+                        <div class="card-header">
+                            <div class="card-icon">⚙️</div>
+                            <div class="card-title">Optional Preferences</div>
+                            <div class="collapse-indicator">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="windSpeed">
+                                        Wind Speed Forecast (mph) 
+                                        <span class="tooltip">🪁
+                                            <span class="tooltiptext">For Kitesurfers 🪁</span>
+                                        </span>
+                                    </label>
+                                    <input type="number" id="windSpeed" placeholder="15">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="flightRating">
+                                        Flight Quality (1-10) 
+                                        <span class="tooltip">ℹ️
+                                            <span class="tooltiptext">Comfy seats, bags included in price, etc.</span>
+                                        </span>
+                                    </label>
+                                    <input type="number" id="flightRating" min="1" max="10" placeholder="8">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="notes">Additional Notes</label>
+                                <textarea id="notes" placeholder="Any special considerations..."></textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <button class="add-btn" onclick="addTravelOption()">✈️ Add Travel Option</button>
@@ -390,7 +661,7 @@
             <div id="optionsContainer">
                 <div class="empty-state">
                     <h3>No travel options yet</h3>
-                    <p>Add your first travel option above to start comparing!</p>
+                    <p>Fill out the form above to start comparing travel options!</p>
                 </div>
             </div>
         </div>
@@ -399,13 +670,53 @@
     <script>
         let travelOptions = [];
 
+        function toggleCard(card) {
+            card.classList.toggle('collapsed');
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const requiredFields = [
+                'optionName', 'destination',
+                'flightCost', 'homeToAirportCost', 'homeToAirportDuration',
+                'hotelCost', 'hotelRating',
+                'airportToHomeCost', 'airportToHomeDuration'
+            ];
+            
+            let filledFields = 0;
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field && field.value.trim() !== '') {
+                    filledFields++;
+                }
+            });
+            
+            const progress = (filledFields / requiredFields.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Add event listeners to update progress
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('departureDate').value = today;
+            document.getElementById('arrivalAtDestinationDate').value = today;
+            document.getElementById('returnDepartureDate').value = today;
+            document.getElementById('arrivalDate').value = today;
+            
+            // Add progress tracking to all inputs
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('input', updateProgress);
+            });
+        });
+
         function addTravelOption() {
             const option = {
                 id: Date.now(),
                 name: document.getElementById('optionName').value || 'Unnamed Option',
                 destination: document.getElementById('destination').value || 'Unknown',
-                departureAirport: document.getElementById('departureAirport').value || 'Unknown Airport',
                 flightCost: parseFloat(document.getElementById('flightCost').value) || 0,
+                returnFlightCost: parseFloat(document.getElementById('returnFlightCost').value) || 0,
                 hotelCost: parseFloat(document.getElementById('hotelCost').value) || 0,
                 carRentalCost: parseFloat(document.getElementById('carRentalCost').value) || 0,
                 homeToAirportCost: parseFloat(document.getElementById('homeToAirportCost').value) || 0,
@@ -414,6 +725,10 @@
                 airportToHomeDuration: parseInt(document.getElementById('airportToHomeDuration').value) || 0,
                 departureDate: document.getElementById('departureDate').value,
                 departureTime: document.getElementById('departureTime').value,
+                arrivalAtDestinationDate: document.getElementById('arrivalAtDestinationDate').value,
+                arrivalAtDestinationTime: document.getElementById('arrivalAtDestinationTime').value,
+                returnDepartureDate: document.getElementById('returnDepartureDate').value,
+                returnDepartureTime: document.getElementById('returnDepartureTime').value,
                 arrivalDate: document.getElementById('arrivalDate').value,
                 arrivalTime: document.getElementById('arrivalTime').value,
                 windSpeed: document.getElementById('windSpeed').value ? parseFloat(document.getElementById('windSpeed').value) : null,
@@ -423,7 +738,7 @@
             };
 
             // Calculate total cost automatically
-            option.totalCost = option.flightCost + option.hotelCost + option.carRentalCost + option.homeToAirportCost + option.airportToHomeCost;
+            option.totalCost = option.flightCost + option.returnFlightCost + option.hotelCost + option.carRentalCost + option.homeToAirportCost + option.airportToHomeCost;
 
             travelOptions.push(option);
             clearForm();
@@ -431,46 +746,31 @@
         }
 
         function clearForm() {
-            document.getElementById('optionName').value = '';
-            document.getElementById('destination').value = '';
-            document.getElementById('departureAirport').value = '';
-            document.getElementById('flightCost').value = '';
-            document.getElementById('hotelCost').value = '';
-            document.getElementById('carRentalCost').value = '';
-            document.getElementById('homeToAirportCost').value = '';
-            document.getElementById('airportToHomeCost').value = '';
-            document.getElementById('homeToAirportDuration').value = '';
-            document.getElementById('airportToHomeDuration').value = '';
-            document.getElementById('departureDate').value = '';
-            document.getElementById('departureTime').value = '';
-            document.getElementById('arrivalDate').value = '';
-            document.getElementById('arrivalTime').value = '';
-            document.getElementById('windSpeed').value = '';
-            document.getElementById('flightRating').value = '';
-            document.getElementById('hotelRating').value = '';
-            document.getElementById('notes').value = '';
+            const inputs = document.querySelectorAll('input[type="text"], input[type="number"], textarea');
+            inputs.forEach(input => {
+                if (input.type !== 'date' && input.type !== 'time') {
+                    input.value = '';
+                }
+            });
+            updateProgress();
         }
 
         function calculateScore(option) {
-            // Total cost is automatically calculated, so use it directly
             const maxTotalCost = Math.max(...travelOptions.map(o => o.totalCost));
             const costScore = maxTotalCost > 0 ? ((maxTotalCost - option.totalCost) / maxTotalCost) * 50 : 25;
             
-            // Time convenience scoring (shorter total travel time to/from airport is better)
             const totalTravelTime = option.homeToAirportDuration + option.airportToHomeDuration;
             const maxTravelTime = Math.max(...travelOptions.map(o => o.homeToAirportDuration + o.airportToHomeDuration));
             const timeScore = maxTravelTime > 0 ? ((maxTravelTime - totalTravelTime) / maxTravelTime) * 25 : 12.5;
             
-            // Quality scoring - hotel is required, flight is optional
             let qualityScore = 0;
-            qualityScore += (option.hotelRating / 10) * 15; // Hotel rating
+            qualityScore += (option.hotelRating / 10) * 15;
             
             if (option.flightRating !== null) {
-                qualityScore += (option.flightRating / 10) * 10; // Flight rating if provided
+                qualityScore += (option.flightRating / 10) * 10;
             }
             
-            // Wind speed scoring (higher is better, but only if specified)
-            let windScore = 5; // default neutral score
+            let windScore = 5;
             const windSpeeds = travelOptions.filter(o => o.windSpeed !== null).map(o => o.windSpeed);
             
             if (option.windSpeed !== null && windSpeeds.length > 0) {
@@ -520,7 +820,7 @@
                 container.innerHTML = `
                     <div class="empty-state">
                         <h3>No travel options yet</h3>
-                        <p>Add your first travel option above to start comparing!</p>
+                        <p>Fill out the form above to start comparing travel options!</p>
                     </div>
                 `;
                 return;
@@ -542,53 +842,57 @@
                     <div class="travel-option ${isBest ? 'best' : ''}">
                         <div class="option-header">
                             <h3>${option.name}</h3>
-                            <p>📍 ${option.destination} (via ${option.departureAirport})</p>
+                            <p>📍 ${option.destination}</p>
                             ${isBest ? '<div class="best-badge">Best Option</div>' : ''}
                         </div>
                         
                         <div class="option-content">
                             <div class="info-section">
-                                <h4>💰 Cost Breakdown</h4>
+                                <h4>💰 Total Cost Breakdown</h4>
                                 <div class="info-item">
-                                    <span class="info-label">Flight</span>
-                                    <span class="info-value">$${option.flightCost.toLocaleString()}</span>
+                                    <span class="info-label">Outbound Flight</span>
+                                    <span class="info-value">${option.flightCost.toLocaleString()}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Return Flight</span>
+                                    <span class="info-value">${option.returnFlightCost.toLocaleString()}</span>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Hotel</span>
-                                    <span class="info-value">$${option.hotelCost.toLocaleString()}</span>
+                                    <span class="info-value">${option.hotelCost.toLocaleString()}</span>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Car Rental</span>
-                                    <span class="info-value">$${option.carRentalCost.toLocaleString()}</span>
+                                    <span class="info-value">${option.carRentalCost.toLocaleString()}</span>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Home → Airport</span>
-                                    <span class="info-value">$${option.homeToAirportCost.toLocaleString()}</span>
+                                    <span class="info-value">${option.homeToAirportCost.toLocaleString()}</span>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Airport → Home</span>
-                                    <span class="info-value">$${option.airportToHomeCost.toLocaleString()}</span>
+                                    <span class="info-value">${option.airportToHomeCost.toLocaleString()}</span>
                                 </div>
                                 <div class="info-item" style="border-top: 2px solid #e2e8f0; margin-top: 8px; padding-top: 8px;">
                                     <span class="info-label"><strong>Total Cost</strong></span>
-                                    <span class="info-value"><strong>$${option.totalCost.toLocaleString()}</strong></span>
+                                    <span class="info-value"><strong>${option.totalCost.toLocaleString()}</strong></span>
                                 </div>
                             </div>
 
                             <div class="info-section">
-                                <h4>✈️ Travel Times</h4>
+                                <h4>✈️ Travel Schedule</h4>
                                 <div class="info-item">
                                     <span class="info-label">Departure</span>
                                     <span class="info-value">${formatDateTime(option.departureDate, option.departureTime)}</span>
                                 </div>
                                 <div class="info-item">
-                                    <span class="info-label">Arrival</span>
+                                    <span class="info-label">Return</span>
                                     <span class="info-value">${formatDateTime(option.arrivalDate, option.arrivalTime)}</span>
                                 </div>
                             </div>
 
                             <div class="info-section">
-                                <h4>🚗 Home ↔ Airport Travel</h4>
+                                <h4>🚗 Door-to-Door Logistics</h4>
                                 <div class="info-item">
                                     <span class="info-label">Home → Airport</span>
                                     <span class="info-value">${option.homeToAirportDuration} min</span>
@@ -604,7 +908,7 @@
                             </div>
 
                             <div class="info-section">
-                                <h4>🌤️ Weather & Quality</h4>
+                                <h4>🌟 Quality & Conditions</h4>
                                 ${option.windSpeed !== null ? `
                                 <div class="info-item">
                                     <span class="info-label">Wind Conditions</span>
@@ -652,13 +956,6 @@
 
             container.innerHTML = `<div class="comparison-grid">${optionsHTML}</div>`;
         }
-
-        // Initialize with current date
-        document.addEventListener('DOMContentLoaded', function() {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('departureDate').value = today;
-            document.getElementById('arrivalDate').value = today;
-        });
     </script>
 </body>
 </html>
